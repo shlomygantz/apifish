@@ -1,0 +1,398 @@
+HOST: http://www.apifish.com/
+
+--- API Fish status emails v0 ---
+---
+Welcome to the our sample API documentation. All comments can be written in (support [Markdown](http://daringfireball.net/projects/markdown/syntax) syntax)
+---
+
+--
+Profile
+The following is a section of resources related to the user profile
+--
+List status emails
+GET /v1/profile.json
+< 200
+< Content-Type: application/json
+{ 
+"id": "1"
+,"firstname": "John"
+,"lastname": "Doe"
+,"username": "jdoe"
+,"email": "jdoe@theboss.com"
+}
+   
+
+--
+Status emails
+The following is a section of resources related to the status emails
+--
+List status emails
+GET /v1/scrummails.json
+< 200
+< Content-Type: application/json
+{
+    "scrummails": [
+        {
+            "url": "/scrummails/1",
+            "subject": "[Freecycle+] Daily scrum for {date}",
+            "id": 1,
+            "frequency": "Weekly",
+            "daysofweek": "Mon, Tue, Wed, Thu, Fri",
+            "enabled": true,
+            "lastsent": "08/08/12 08:30 AM"
+        },
+        {
+            "url": "/scrummails/2",
+            "subject": "[DOL] Daily status",
+            "id": 2,
+            "frequency": "Monthly",
+            "daysofmonth": "1, 5, 10, 15, 28",
+            "enabled": false,
+            "lastsent": "08/08/12 08:30 AM"
+        }
+    ]
+}
+
+
+
+
+get details for a specific status email as json
+GET /v1/scrummails/1.json
+< 200
+< Content-Type: application/json
+{
+    "scrummail": {
+        "url": "/scrummails/1",
+        "recipients":"shlomy@test.com,tal@test.com",
+        "subject": "[Freecycle+] Daily scrum for {date}",
+        "id": 1,
+        "frequency": "Weekly",
+        "daysofweek": "Mon,Tue,Wed,Thu,Fri",
+        "daysofmonth": "1,5,10,19,21,30",
+        "timeofday": "8:30 PM",
+        "timezone": "GMT+5",
+        "signature": "Thanks, your team leader",
+        "lastsent": "08/08/12 08:30 AM",
+        "exclude": [
+            {
+                "type":"date", 
+                "id": 1,
+                "value":"01/01/2013"
+            },
+            {
+                "type":"date", 
+                "id": 2,
+                "value":"05/01/2013"
+            },
+            {
+                "type":"calendar", 
+                "id": 3,
+                "value":"us"
+            },
+            {
+                "type":"calendar", 
+                "id": 4,
+                "value":"jewish"
+            },
+            {
+                "type":"calendar", 
+                "id": 5,
+                "value":"christian"
+            },
+            {
+                "type":"calendar", 
+                "id": 6,
+                "value":"muslim"
+            }
+        ],
+        "questions": [
+            {
+                "sort": 1,
+                "id": 1,
+                "text": "What have you done yesterday?"
+            },
+            {
+                "sort": 2,
+                "id": 2,
+                "text": "What will you do today?"
+            },
+            {
+                "sort": 3,
+                "id": 3,
+                "text": "Any issues?"
+            }
+        ]
+    }
+}
+
+get details for a specific status email as json 
+GET /v1/scrummails/2.json
+< 200
+< Content-Type: application/json
+{
+    "scrummail": {
+        "url": "/scrummails/1",
+        "recipients":"shlomy@test.com,tal@test.com",
+        "subject": "[DOL] Daily status",
+        "id": 1,
+        "frequency": "Monthly",
+        "daysofweek": "Mon,Tue,Wed,Thu,Fri",
+        "daysofmonth": "1,5,10,19,21,30",
+        "timeofday": "8:30 PM",
+        "timezone": "GMT+5",
+        "signature": "Thanks, your team leader",
+        "lastsent": "08/08/12 08:30 AM",
+        "exclude": [
+            {
+                "type":"date", 
+                "id": 7,
+                "value":"01/01/2013"
+            },
+            {
+                "type":"date", 
+                "id": 8,
+                "value":"05/01/2013"
+            },
+            {
+                "type":"calendar", 
+                "id": 9,
+                "value":"us"
+            },
+            {
+                "type":"calendar", 
+                "id": 10,
+                "value":"jewish"
+            },
+            {
+                "type":"calendar", 
+                "id": 11,
+                "value":"christian"
+            },
+            {
+                "type":"calendar", 
+                "id": 12,
+                "value":"muslim"
+            }
+        ],
+        "questions": [
+            {
+                "sort": 1,
+                "id": 4,
+                "text": "What have you done yesterday?"
+            },
+            {
+                "sort": 2,
+                "id": 5,
+                "text": "What will you do today?"
+            },
+            {
+                "sort": 3,
+                "id": 6,
+                "text": "Any issues?"
+            }
+        ]
+    }
+}
+
+List all scrum emails sent from a specific id
+GET /v1/scrummails/1/sent.json
+< 200
+< Content-Type: application/json
+{
+    "sent": [
+        {
+            "id": 1,
+            "datesent": "08/08/12 08:30 AM",
+            "countReplies": 10,
+            "countReceipients": 12       
+        },
+       {
+            "id": 2,
+            "datesent": "10/10/12 08:30 AM",
+            "countReplies": 9,
+            "countReceipients": 12
+        },
+       {
+            "id": 3,
+            "datesent": "11/11/12 08:30 AM",
+            "countReplies": 3,
+            "countReceipients": 12          
+        }
+    ]
+}
+
+
+List all scrum emails sent from a specific id
+GET /v1/scrummails/2/sent.json
+< 200
+< Content-Type: application/json
+{
+    "sent": [
+        {
+            "id": 4,
+            "datesent": "08/08/13 08:30 AM",
+            "countReplies": 10,
+            "countReceipients": 12       
+        },
+       {
+            "id": 5,
+            "datesent": "10/10/13 08:30 AM",
+            "countReplies": 9,
+            "countReceipients": 12
+        },
+       {
+            "id": 6,
+            "datesent": "11/11/13 08:30 AM",
+            "countReplies": 3,
+            "countReceipients": 12          
+        }
+    ]
+}
+
+List specific scrum email sent from a specific id
+GET /v1/scrummails/1/sent/#id.json
+< 200
+< Content-Type: application/json
+{
+    "sent": 
+        {
+            "id": 1,
+            "datesent": "08/08/12 08:30 AM",
+            "countReplies": 10,
+            "countReceipients": 12       
+        }      
+}
+
+
+List all scrum answers to specific scrummail send on specific date
+GET /v1/scrummails/1/sent/34/answers.json
+< 200
+< Content-Type: application/json
+{
+    "answers": [
+         {
+            "id": 1,
+            "answerdate": "08/08/12 08:30 AM",
+            "by": "Micky@Mouse.com",
+            "answer": "bla bla bla bla ... cheese.."       
+        },
+       {
+            "id": 2,
+            "answerdate": "08/08/12 10:30 AM",
+            "by": "Snoopy@Doog.com",
+            "answer": "who let the dogs out ?? who who ??"
+        },
+       {
+            "id": 3,
+            "answerdate": "08/09/12 08:30 AM",
+            "by": "mooky@bluebrick.com",
+            "answer": "I'm out of here "          
+        }
+    ]
+}
+
+
+Create new  status email
+POST /v1/scrummails/new.json
+> Content-Type: application/json
+{
+  "scrummail": {
+    "subject": "[Freecycle+] Daily Scrum for {date}",
+    "recipients": "shlomy@test.com,tal@test.com",
+    "frequency": "Weekly",
+    "daysofweek": "M,T,W,T,F",
+    "timeofday": "8:00 AM",
+    "timezone": "GMT+5",
+    "signature": "Thanks, your team leader",
+    "questions": {
+      "question": [
+        {
+          "sort": "1",
+          "text": "What have you done yesterday?"
+        },
+        {
+          "sort": "2",
+          "text": "What will you do today?"
+        },
+        {
+          "sort": "3",
+          "text": "Any issues?"
+        }
+      ]
+    }
+  }
+}
+< 201
+< Content-Type: application/json
+{
+  "scrummail": {
+    "id": "2",
+    "subject": "[Freecycle+] Daily Scrum for {date}",
+    "recipients": "shlomy@test.com,tal@test.com",
+    "frequency": "Weekly",
+    "daysofweek": "M,T,W,T,F",
+    "timeofday": "8:00 AM",
+    "timezone": "GMT+5",
+    "signature": "Thanks, your team leader",
+    "questions": {
+      "question": [
+        {
+          "-sort": "1",
+          "#text": "What have you done yesterday?"
+        },
+        {
+          "-sort": "2",
+          "#text": "What will you do today?"
+        },
+        {
+          "-sort": "3",
+          "#text": "Any issues?"
+        }
+      ]
+    }
+  }
+}
+
+
+
+Updates existing status email
+PUT /v1/scrummails/#{id}.json
+> Content-Type: application/json
+{
+  "scrummail": {
+    "id": "2",
+    "subject": "[Freecycle+] Daily Scrum for {date}",
+    "recipients": "shlomy@test.com,tal@test.com",
+    "frequency": "Weekly",
+    "daysofweek": "M,T,W,T,F",
+    "timeofday": "8:00 AM",
+    "timezone": "GMT+5",
+    "signature": "Thanks, your team leader",
+    "questions": {
+      "question": [
+        {
+          "-sort": "1",
+          "#text": "What have you done yesterday?"
+        },
+        {
+          "-sort": "2",
+          "#text": "What will you do today?"
+        },
+        {
+          "-sort": "3",
+          "#text": "Any issues?"
+        }
+      ]
+    }
+  }
+}
+< 200
+
+
+Deletes existing status email
+DELETE /v1/scrummails/#{id}
+< 200
+
+
+
+
